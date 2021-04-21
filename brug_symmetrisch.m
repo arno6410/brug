@@ -1,19 +1,19 @@
-function [krachten] = brug(n) %n is aantal tuien per pylon
+function [krachten] = brug_symmetrisch(n) %n is aantal tuien per pylon
 
 %% Constanten invoeren
 lengte = 2.2;
-hoogte = 0.5;
+hoogte = 0.55;
 halveafstand = lengte/2;
 afstand = (halveafstand-0.1)/n; %de afstand tussen 2 tuien op het wegdek
-hoogteverschil = hoogte/n; %hoogteverschil tussen 2 tuien op de pylon
+hoogteverschil = (hoogte-0.05)/n; %hoogteverschil tussen 2 tuien op de pylon
 extrakrachtafstand = (lengte-0.2)/3 + 0.1; %hier grijpt de puntlast aan
-hoek = atan(hoogte/(lengte/2)) * 180 / pi; %dezelfde hoek voor elke tui
+hoek = atan(hoogte/(lengte/2)); %dezelfde hoek voor elke tui
 
 afstanden = [];
 hoogtes = [];
 krachten = [];
 huidigeafstand = 0.1;
-huidigehoogte = 0;
+huidigehoogte = 0.05;
 minimum1 = 5000;
 index1 = 0;
 
@@ -42,6 +42,7 @@ for i=1:2*n
     krachtvector = [afstanden(i);N;Nh];
     krachten = [krachten krachtvector]; 
 end
+disp(hoogtes)
 
 %% Rekening houden met de puntlast op 66 cm
 %Deze valt juist op een tui als we een veelvoud van 3 gebruiken
@@ -60,5 +61,5 @@ end
 titel = int2str(n) + "tuien.xlsx";
 convertStringsToChars(titel)
 disp(titel)
-xlswrite(titel,krachten)
+%xlswrite(titel,krachten)
 end
